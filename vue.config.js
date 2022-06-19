@@ -6,7 +6,7 @@ module.exports = {
     //                  transpileDependencies: true
     //              }),
     // 基本路径
-    publicPath: './',
+    publicPath: '/mo_page/',
     devServer: {
         port: 8080,
         host: "localhost",
