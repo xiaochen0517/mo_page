@@ -12,7 +12,7 @@ export default {
   },
   methods: {
     get() {
-      this.axios.get("/sugrec?ie=utf-8&json=1&prod=pc&wd=网络")
+      this.axios.get("https://www.baidu.com/sugrec?ie=utf-8&json=1&prod=pc&wd=网络")
           .then(res => {
             console.log('success', res);
           })
