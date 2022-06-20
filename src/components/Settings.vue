@@ -12,7 +12,9 @@ export default {
   },
   methods: {
     get() {
-      this.axios.get("https://www.baidu.com/sugrec?ie=utf-8&json=1&prod=pc&wd=网络")
+      console.log(process.env.VUE_APP_BAIDU_PATH);
+      console.log(process.env.NODE_ENV);
+      this.axios.get(process.env.VUE_APP_BAIDU_PATH + "网络")
           .then(res => {
             console.log('success', res);
           })

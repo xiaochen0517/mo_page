@@ -1,7 +1,9 @@
 <template>
  <div class="top-box">
    <p>test</p>
-   <img class="main-img" alt="Vue logo" src="../assets/logo.jpg">
+   <el-row justify="center">
+     <img class="main-img" alt="Vue logo" src="../assets/logo.jpg">
+   </el-row>
  </div>
 </template>
 

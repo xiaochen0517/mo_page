@@ -43,7 +43,7 @@ export default {
     querySearchAsync(data, back) {
       // 等待添加热搜列表
       if (data == undefined || data == null || data == '') return;
-      this.axios.get("/sugrec?ie=utf-8&json=1&prod=pc&wd=" + data)
+      this.axios.get(process.env.VUE_APP_BAIDU_PATH + data)
           .then(res => {
             console.log('success', res.data.g);
             back(res.data.g);
