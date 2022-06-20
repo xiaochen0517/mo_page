@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-button @click="get">GET TEST</el-button>
+    <el-button @click="test1">TEST 1</el-button>
   </div>
 </template>
 
@@ -8,19 +8,11 @@
 export default {
   name: "SettingsComponent",
   created() {
-    console.log("data", this.$api.Search.hint);
+    console.log("data", process.env.VUE_APP_HOT_SEARCH);
   },
   methods: {
-    get() {
-      console.log(process.env.VUE_APP_BAIDU_PATH);
-      console.log(process.env.NODE_ENV);
-      this.axios.get(process.env.VUE_APP_BAIDU_PATH + "网络")
-          .then(res => {
-            console.log('success', res);
-          })
-          .catch(err => {
-            console.log('failure', err);
-          });
+    test1(){
+      this.$cookies.set('hotSearch', '');
     }
   }
 }

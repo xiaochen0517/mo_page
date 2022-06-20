@@ -15,7 +15,7 @@ axios.interceptors.response.use(response => {
     // 请求成功
     // 1. 根据自己项目需求定制自己的拦截
     // 2. 然后返回数据
-    return response;
+    return response.data;
 }, error => {
     // 请求失败
     if (error && error.response) {

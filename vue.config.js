@@ -14,14 +14,14 @@ module.exports = {
         // 自动启动浏览器
         open: false,
         proxy: {
-            "/sugrec": {
-                target: "https://www.baidu.com/sugrec", //设置调用的接口域名和端口
-                changeOrigin: true, //是否跨域
-                ws: true,
-                pathRewrite: {
-                    "^/sugrec": ""
-                }
-            }
+            // "/sugrec": {
+            //     target: "https://www.baidu.com/sugrec", //设置调用的接口域名和端口
+            //     changeOrigin: true, //是否跨域
+            //     ws: true,
+            //     pathRewrite: {
+            //         "^/sugrec": ""
+            //     }
+            // }
         }
     },
 
