@@ -1,9 +1,9 @@
 <template>
   <div>
     <el-row justify="center">
+      <!--      搜索框-->
       <el-autocomplete
-          class="el-col-md-8"
-          size="large"
+          class="el-col-md-8 search-input"
           v-model="keyWord"
           :fetch-suggestions="querySearchAsync"
           placeholder=""
@@ -13,39 +13,32 @@
           clearable
           :teleported="true">
         <template #prefix>
+          <!--          选择搜索引擎弹出框-->
           <el-popover width="150px"
-                      trigger="click">
+                      trigger="hover"
+                      :hide-after="0">
+            <!--            搜索框左侧显示图标-->
             <template #reference>
-              <img :src="require('../assets'+engine[useEngine].icon)"
-                   width="25"
-                   height="25"/>
+              <span :class="'engine-icon show-engine-icon icon iconfont '+engine[useEngine].icon"></span>
             </template>
+            <!--            点击图标弹出内容-->
             <template #default>
               <el-row class="popover-content" justify="center" v-for="(val, key, index) in engine" :key="index">
-                <img class="el-col-4" :alt="key" :src="require('../assets'+val.icon)"
-                     width="25"
-                     height="25"/>
-                <el-link class="popover-link el-col-8" :underline="false">{{ key }}</el-link>
+                <el-button class="el-col-24" style="margin-top: 5px;margin-bottom: 5px" @click="changeUseEngine(key)">
+                  <span :class="'engine-icon icon iconfont '+val.icon"></span>
+                  <span style="margin-left: 10px"> {{ val.name }} </span>
+                </el-button>
               </el-row>
             </template>
           </el-popover>
         </template>
       </el-autocomplete>
-      <el-button class="search-button" type="primary" size="large" @click="handleSelect">
+      <el-button class="search-button" type="primary" @click="handleSelect">
         <el-icon>
           <search/>
         </el-icon>
       </el-button>
     </el-row>
-    <el-popover :width="50"
-                trigger="click">
-      <template #reference>
-        <el-button>hover 激活</el-button>
-      </template>
-      <template #default>
-        <p>test</p>
-      </template>
-    </el-popover>
   </div>
 </template>
 
@@ -161,39 +154,38 @@ export default {
      * 初始化搜索引擎数据
      */
     initData() {
-      let searchEngine = this.$cookies.get('searchEngine');
-      // 已经存在数据，从cookie中取出
-      if (this.$cookies.isKey('searchEngine') && searchEngine != null
-          && searchEngine != '') {
-        this.engine = JSON.parse(decodeURIComponent(searchEngine));
-        this.useEngine = this.$cookies.get('useEngine');
-      } else {
-        // 第一次执行，初始化数据
-        console.log(this.$api.Search.engine);
-        let jsonStr = encodeURIComponent(JSON.stringify(this.$api.Search.engine));
-        this.$cookies.set('searchEngine', jsonStr, -1);
-        this.$cookies.set('useEngine', process.env.VUE_APP_DEFAULT_SEARCH_ENGINE, -1);
-        this.engine = this.$api.Search.engine;
-        this.useEngine = process.env.VUE_APP_DEFAULT_SEARCH_ENGINE;
-      }
+      this.engine = JSON.parse(decodeURIComponent(this.$cookies.get('searchEngine')));
+      this.useEngine = this.$cookies.get('useEngine');
+    },
+    /**
+     * 修改使用的搜索引擎
+     * @param name
+     */
+    changeUseEngine(name) {
+      this.$cookies.set('useEngine', name, -1);
+      this.useEngine = name;
     }
   }
 }
 </script>
 
-<style scoped lang="less">
+<style scoped>
+
+
 .search-button {
   margin-left: 10px;
+  margin-top: 1px;
 }
 
 .el-form-item__content {
   //margin-left: 0 !important;
 }
 
-//.popover-link:hover+img{
-//  overflow: hidden;
-//  position: relative;
-//  left: -25px;
-//  filter: drop-shadow(blue 25px 0);
-//}
+.engine-icon {
+  font-size: 25px;
+}
+
+.show-engine-icon {
+  color: #2c2c2c;
+}
 </style>

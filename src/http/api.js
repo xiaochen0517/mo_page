@@ -4,19 +4,23 @@ export default {
         engine: {
             baidu: {
                 url: 'https://www.baidu.com/s?wd=',
-                icon: '/icon/engine/baidu.svg', // 图标在assets文件夹中的位置
+                icon: 'mopage-baidu',
+                name: '百度',
             },
             bing: {
                 url: 'https://www.bing.com/search?q=',
-                icon: '/icon/engine/bing.svg',
+                icon: 'mopage-Bing',
+                name: '必应',
             },
             google: {
                 url: 'https://www.google.com/search?q=',
-                icon: '/icon/engine/google.svg',
+                icon: 'mopage-google',
+                name: '谷歌',
             },
             sougou: {
                 url: 'https://www.sogou.com/web?query=',
-                icon: '/icon/engine/sougou.svg',
+                icon: 'mopage-Sougou',
+                name: '搜狗',
             },
         }
     },
@@ -25,14 +29,16 @@ export default {
         bingPic: 'https://cn.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1',
     },
 
-    // 首页
-    Index: {
-        index: '/index/index'
+    Settings: {
+        showCollect: true, // 是否显示收藏链接
     },
 
-    // 个人中心
-    Home: {
-        UserInfo: '/user/info'
-    },
+    Collect: [{
+        name: '百度',
+        url: 'https://www.baidu.com'
+    },{
+        name: 'GitHub',
+        url: 'https://github.com'
+    }]
 
 }
