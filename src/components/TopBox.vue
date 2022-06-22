@@ -25,6 +25,14 @@
               </el-icon>
             </el-button>
           </el-row>
+          <br>
+          <el-row align="middle">
+            <el-button class="el-col-offset-2" @click="showEditCollect = true">修改收藏夹内容
+              <el-icon>
+                <Edit/>
+              </el-icon>
+            </el-button>
+          </el-row>
         </div>
       </template>
       <template #footer>
@@ -43,6 +51,48 @@
       <template #footer>
       <span class="dialog-footer">
         <el-button @click="showEditEngine = false">取消</el-button>
+        <el-button type="primary" @click="saveEditEngine">保存</el-button>
+      </span>
+      </template>
+    </el-dialog>
+    <el-dialog
+        v-model="showEditCollect"
+        title="修改收藏夹内容"
+        width="50%">
+      <div>
+        <el-button type="primary" size="small" @click="showAddCollect = true">添加收藏链接</el-button>
+        <br>
+        <el-table :data="CollectData" border style="width: 100%">
+          <el-table-column type="selection" width="55" />
+          <el-table-column prop="name" label="名称" width="150"/>
+          <el-table-column prop="url" label="链接"/>
+          <el-table-column fixed="right" label="操作" width="150">
+            <template #default>
+              <el-button link type="primary" size="small" @click="editCollect">修改</el-button>
+              <el-button link type="danger" size="small" @click="deleteCollect">删除</el-button>
+            </template>
+          </el-table-column>
+        </el-table>
+      </div>
+      <template #footer>
+      <span class="dialog-footer">
+        <el-button @click="showEditEngine = false">取消</el-button>
+        <el-button type="primary" @click="saveEditEngine">保存</el-button>
+      </span>
+      </template>
+    </el-dialog>
+    <el-dialog
+        v-model="showAddCollect"
+        title="添加链接"
+        width="30%">
+      <div>
+        <el-input placeholder="名称"></el-input>
+        <br><br>
+        <el-input placeholder="链接"></el-input>
+      </div>
+      <template #footer>
+      <span class="dialog-footer">
+        <el-button @click="showAddCollect = false">取消</el-button>
         <el-button type="primary" @click="saveEditEngine">保存</el-button>
       </span>
       </template>
@@ -76,6 +126,9 @@ export default {
       showEditEngine: false,
       engine: {},
       editor: null,
+      showEditCollect: false,
+      CollectData: [],
+      showAddCollect: false,
     }
   },
   created() {
@@ -103,6 +156,7 @@ export default {
       this.engine = JSON.parse(decodeURIComponent(this.$cookies.get('searchEngine')));
       // cookie中储存的是string，直接赋值会出现bug
       this.showCollect = this.$cookies.get('showCollect') === 'true';
+      this.CollectData = JSON.parse(decodeURIComponent(this.$cookies.get('collect')));
     },
     refreshTime() {
       setInterval(() => { //每1秒刷新一次
