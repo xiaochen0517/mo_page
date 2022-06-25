@@ -19,14 +19,14 @@
                       :hide-after="0">
             <!--            搜索框左侧显示图标-->
             <template #reference>
-              <span :class="'engine-icon show-engine-icon icon iconfont '+engine[useEngine].icon"></span>
+              <span :class="'engine-icon show-engine-icon icon iconfont ' + engine[useEngine].icon"></span>
             </template>
             <!--            点击图标弹出内容-->
             <template #default>
-              <el-row class="popover-content" justify="center" v-for="(val, key, index) in engine" :key="index">
-                <el-button class="el-col-24" style="margin-top: 5px;margin-bottom: 5px" @click="changeUseEngine(key)">
-                  <span :class="'engine-icon icon iconfont '+val.icon"></span>
-                  <span style="margin-left: 10px"> {{ val.name }} </span>
+              <el-row class="popover-content" justify="center" v-for="(item, index) in engine" :key="index">
+                <el-button class="el-col-24" style="margin-top: 5px;margin-bottom: 5px" @click="changeUseEngine(index)">
+                  <span :class="'engine-icon icon iconfont '+item.icon"></span>
+                  <span style="margin-left: 10px"> {{ item.name }} </span>
                 </el-button>
               </el-row>
             </template>
@@ -57,7 +57,7 @@ export default {
       back: null,
       // 搜索引擎列表
       engine: {},
-      useEngine: '',
+      useEngine: 0,
     }
   },
   computed: {},
@@ -155,15 +155,19 @@ export default {
      */
     initData() {
       this.engine = JSON.parse(decodeURIComponent(this.$cookies.get('searchEngine')));
-      this.useEngine = this.$cookies.get('useEngine');
+      this.useEngine = Number.parseInt(this.$cookies.get('useEngine'));
+      // 以防数组越界
+      if (this.useEngine > this.engine.length - 1) {
+        this.useEngine = this.engine.length - 1;
+      }
     },
     /**
      * 修改使用的搜索引擎
-     * @param name
+     * @param index
      */
-    changeUseEngine(name) {
-      this.$cookies.set('useEngine', name, -1);
-      this.useEngine = name;
+    changeUseEngine(index) {
+      this.$cookies.set('useEngine', index, -1);
+      this.useEngine = index;
     }
   }
 }
@@ -175,10 +179,6 @@ export default {
 .search-button {
   margin-left: 10px;
   margin-top: 1px;
-}
-
-.el-form-item__content {
-  //margin-left: 0 !important;
 }
 
 .engine-icon {

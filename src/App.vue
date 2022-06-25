@@ -25,19 +25,19 @@ export default {
     },
     initData() {
       // 已经存在数据，从cookie中取出
-      if (!this.$cookies.isKey('searchEngine')) {
+      if (!this.$cookies.isKey('searchEngine') || this.$cookies.get('searchEngine') === '' || this.$cookies.get('searchEngine') === null) {
         // 搜索引擎
         this.$cookies.set('searchEngine', encodeURIComponent(JSON.stringify(this.$api.Search.engine)), -1);
       }
-      if (!this.$cookies.isKey('useEngine')) {
+      if (!this.$cookies.isKey('useEngine') || this.$cookies.get('useEngine') === '' || this.$cookies.get('useEngine') === null) {
         // 使用的搜索引擎
         this.$cookies.set('useEngine', process.env.VUE_APP_DEFAULT_SEARCH_ENGINE, -1);
       }
-      if (!this.$cookies.isKey('collect')) {
+      if (!this.$cookies.isKey('collect') || this.$cookies.get('collect') === '' || this.$cookies.get('collect') === null) {
         // 收藏链接
         this.$cookies.set('collect', encodeURIComponent(JSON.stringify(this.$api.Collect)), -1);
       }
-      if (!this.$cookies.isKey('showCollect')) {
+      if (!this.$cookies.isKey('showCollect') || this.$cookies.get('showCollect') === '' || this.$cookies.get('showCollect') === null) {
         // 是否显示收藏链接
         this.$cookies.set('showCollect', this.$api.Settings.showCollect, -1);
       }
