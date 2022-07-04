@@ -1,24 +1,5 @@
 # mopage
 
-## Project setup
-```
-npm install
-```
+新建标签页网页，单页面，可部署到gitpage或者gitee中。
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+支持bing每日一图，搜索引擎修改，收藏夹功能。
